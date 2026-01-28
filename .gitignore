@@ -137,6 +137,17 @@ venv.bak/
 /datasets/*/images/__pycache__/
 /.datasets/zip/
 
+# Datasets
+datasets/
+*.zip
+*.tar
+*.rar
+
+# Model weights
+*.pt
+*.onnx
+*.engine
+
 *.zip
 *.tar.gz
 
