@@ -133,7 +133,7 @@ env.bak/
 venv.bak/
 
 *.pt
-/datasets/__pycache__/
+/datasets/
 /datasets/*/images/__pycache__/
 /.datasets/zip/
 
