@@ -137,6 +137,9 @@ venv.bak/
 /datasets/*/images/__pycache__/
 /.datasets/zip/
 
+/runs
+runs/
+
 # Datasets
 datasets/
 *.zip
