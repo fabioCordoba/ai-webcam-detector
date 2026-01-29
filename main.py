@@ -3,16 +3,12 @@ os.environ["FLAGS_enable_onednn"] = "0"
 
 import cv2
 from ultralytics import YOLO
-# from paddleocr import PaddleOCR
-import easyocr
 
 
 def main():
     # model = YOLO("yolov8n.pt")  # Se descarga solo la primera vez
     # model = YOLO("yolo11n.pt")  # Se descarga solo la primera vez
     model = YOLO('runs/detect/train/weights/best.pt')
-    # ocr = PaddleOCR(lang='en')
-    reader = easyocr.Reader(['es'], gpu=False)
 
     cap = cv2.VideoCapture(0)
 
@@ -41,19 +37,10 @@ def main():
             cv2.imshow("Placa detectada", placa)
 
             # (opcional) Guardar imagen
-            # cv2.imwrite("placa.jpg", placa)
-            # 🔹 Reconocimiento OCR
-            # result = ocr.predict(placa)
-            result = reader.readtext(placa)
-            for (_, text, conf) in result:
-                print(f"===> Placa: {text}, Confianza: {conf}")
+            cv2.imwrite("placa.jpg", placa)
 
-            # if result and len(result[0]) > 0:
-            #     text = result[0][0]['text']
-            #     confidence = result[0][0]['score']
-            #     print(f"===> Placa: {text} (Confianza: {confidence:.2f})")
-            # else:
-            #     print("No se pudo leer texto")
+            # 🔹 Reconocimiento OCR
+            # Aquí puedes integrar tu modelo OCR para reconocer el texto de la placa
 
         annotated_frame = results[0].plot()
 
