@@ -1,36 +1,27 @@
 {
-    "input_path": "./placa.jpg",
+    "input_path": "./imagen_test_001.jpg",
     "page_index": null,
     "model_settings": {
-        "use_doc_preprocessor": true,
-        "use_textline_orientation": true
-    },
-    "doc_preprocessor_res": {
-        "input_path": null,
-        "page_index": null,
-        "model_settings": {
-            "use_doc_orientation_classify": true,
-            "use_doc_unwarping": true
-        },
-        "angle": 0
+        "use_doc_preprocessor": false,
+        "use_textline_orientation": false
     },
     "dt_polys": [
         [
             [
-                0,
-                14
+                147,
+                103
             ],
             [
-                74,
-                3
+                207,
+                97
             ],
             [
-                75,
-                30
+                209,
+                124
             ],
             [
-                0,
-                41
+                149,
+                129
             ]
         ]
     ],
@@ -44,42 +35,42 @@
     },
     "text_type": "general",
     "textline_orientation_angles": [
-        0
+        -1
     ],
     "text_rec_score_thresh": 0.0,
     "return_word_box": false,
     "rec_texts": [
-        "0UO-14G"
+        "FCY-140"
     ],
     "rec_scores": [
-        0.804137110710144
+        0.9777535796165466
     ],
     "rec_polys": [
         [
             [
-                0,
-                14
+                147,
+                103
             ],
             [
-                74,
-                3
+                207,
+                97
             ],
             [
-                75,
-                30
+                209,
+                124
             ],
             [
-                0,
-                41
+                149,
+                129
             ]
         ]
     ],
     "rec_boxes": [
         [
-            0,
-            3,
-            75,
-            41
+            147,
+            97,
+            209,
+            129
         ]
     ]
 }
