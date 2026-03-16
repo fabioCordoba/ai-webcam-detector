@@ -1,36 +1,21 @@
 
 import cv2
 from ultralytics import YOLO
-import imutils
-import easyocr
+from paddleocr import PaddleOCR
 import re
 
-def clean_plate(text):
-    text = text.upper()
-    text = re.sub(r'[^A-Z0-9]', '', text)
-
-    # Correcciones comunes
-    text = text.replace('0', 'O')
-    text = text.replace('6', 'G')
-    text = text.replace('1', 'I')
-
-    return text
-
-
-def preprocess_plate(img):
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    gray = cv2.bilateralFilter(gray, 11, 17, 17)
-    _, thresh = cv2.threshold(gray, 0, 255,
-                              cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    return thresh
-
+def limpiar_texto(texto):
+    return re.sub(r"\s+", " ", texto.strip())
 
 
 def main():
     # model = YOLO("yolov8n.pt")  # Se descarga solo la primera vez
     # model = YOLO("yolo11n.pt")  # Se descarga solo la primera vez
     model = YOLO('runs/detect/train/weights/best.pt')
-    reader = easyocr.Reader(['en'], gpu=True)
+    ocr = PaddleOCR(
+        use_doc_orientation_classify=False, 
+        use_doc_unwarping=False, 
+        use_textline_orientation=False)
 
     cap = cv2.VideoCapture(0)
 
@@ -62,20 +47,18 @@ def main():
 
             # 🔹 Reconocimiento OCR
             # Aquí puedes integrar tu modelo OCR para reconocer el texto de la placa
-            plate_proc = preprocess_plate(placa)
-            cv2.imshow("Placa procesada", plate_proc)
+            result = ocr.predict(placa)
+            for res in result:
+                print("==== RESULTADO OCR ====")
+                # Salida original
+                res.print()
+                # res.save_to_img("output")
+                res.save_to_json("output")
 
-            result = reader.readtext(
-                plate_proc,
-                allowlist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-                detail=1
-            )
-
-            texto_raw = "".join([r[1] for r in result if r[2] > 0.7])
-            texto = clean_plate(texto_raw)
-
-            print("✅ PLACA FINAL:", texto)
-
+                print("----- Diferentes formatos de salida -----")
+                # Texto simple
+                print("Texto detectado:", limpiar_texto(str(res['rec_texts'][0])))
+                print("Confianza:", round(float(res['rec_scores'][0]), 3))
 
         annotated_frame = results[0].plot()
 

@@ -29,6 +29,7 @@ ocr = PaddleOCR(
 #     use_doc_unwarping=False,
 #     use_textline_orientation=False) # 更换 PP-OCRv5_mobile 模型
 # result = ocr.predict("./general_ocr_002.png")
+
 result = ocr.predict("./imagen_test_001.jpg")
 for res in result:
         print("==== RESULTADO OCR ====")
